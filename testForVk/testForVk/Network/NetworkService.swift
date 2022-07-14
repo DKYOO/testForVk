@@ -25,11 +25,6 @@ class NetworkService {
                 if let data = data {
                     do {
                         let decodedData = try JSONDecoder().decode(NResponseRootModel.self, from: data)
-                        print(decodedData)
-//                        let description = decodedData.body.services
-//                        let imageURL = decodedData
-                        
-//                        let weather = WeatherModel(conditionID: id, cityName: name, temprature: temp)
                         completion(.success(decodedData))
                     } catch {
                         completion(.failure(error))

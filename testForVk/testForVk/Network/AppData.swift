@@ -20,5 +20,5 @@ struct Services: Codable {
     let name: String
     let description: String
     let link: String
-    let icon_url: URL
+    let icon_url: String
 }

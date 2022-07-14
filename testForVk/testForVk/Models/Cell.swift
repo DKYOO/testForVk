@@ -21,6 +21,7 @@ final class Cell: UITableViewCell {
     private let name: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
+        label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -28,6 +29,7 @@ final class Cell: UITableViewCell {
     private let descript: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
+        label.textColor = .white
         label.adjustsFontSizeToFitWidth = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -36,9 +38,7 @@ final class Cell: UITableViewCell {
     private let image: UIImageView = {
         let image = UIImageView()
         image.layer.cornerRadius = 10
-//        image.imageFromServerURL(<#T##URLString: String##String#>, placeHolder: nil)
         image.clipsToBounds = true
-        image.backgroundColor = .secondarySystemBackground
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -79,18 +79,17 @@ final class Cell: UITableViewCell {
 }
 
 // MARK: - Configurable
-//extension Cell: Configurable {
-//
-//    struct Model {
-//        let name: String
-//        let description: String
-//        let image: URL
-//    }
-//
-//    func configure(model: Model) {
-//        name.text = model.name
-//        descript.text = model.description
-//        //???
-//        //image ?!
-//    }
-//}
+extension Cell: Configurable {
+
+    struct Model {
+        let name: String
+        let description: String
+        let image: String
+    }
+
+    func configure(model: Model) {
+        name.text = model.name
+        descript.text = model.description
+        image.imageFromServerURL(model.image, placeHolder: nil)
+    }
+}

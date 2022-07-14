@@ -10,8 +10,8 @@ import Foundation
 
 class ViewController: UIViewController {
     
-    var arr: [Model] = []
-    
+    var arrayWithBullshit: [Services] = []
+    var counter: Int = 1
     
     private var tableView: UITableView = {
         let tableView = UITableView()
@@ -20,10 +20,19 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NetworkService.shared.loadJson { _ in }
+        NetworkService.shared.loadJson { result in
+            switch result {
+            case .success(let data):
+                print("+++++++++++++++++++++++++")
+                print("Success")
+                self.arrayWithBullshit = data.body.services
+                self.counter = data.body.services.count
+            case .failure(let error):
+                print(error)
+            }
+        }
         setupView()
         setupTableView()
-        arr = getArray(model: Services)
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.rowTapped))
         tableView.addGestureRecognizer(tap)
     }
@@ -32,7 +41,6 @@ class ViewController: UIViewController {
         view.backgroundColor = .black
         title = K.title
         view.addSubview(tableView)
-        tableView.rowHeight = 80
         tableView.pin(to: view)
     }
     
@@ -46,39 +54,32 @@ class ViewController: UIViewController {
     }
     
     @objc private func rowTapped(sender: UITapGestureRecognizer) {
-//         guard let text = searchTextField.text else {
-//             return
-//         }
-//         print(text)
+
      }
-    
-    
-    func getArray(model: Services) -> Model {
-        let modelOne = Model(name: model.name, description: model.description, image: model.icon_url)
-        return modelOne
-    }
-  
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource  {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return 8
+    
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: K.reuseCellName) as? Cell
         else { fatalError() }
         
-//        let element = arr[indexPath.row]
-        
-//        cell.configure(model: .init(name: "hello" , description: "Worlk", image: imageToModel))
-//        cell.selectionStyle = .gray
+        let element = arrayWithBullshit[indexPath.row]
+        cell.configure(model: .init(name: element.name, description: element.description, image: element.icon_url))
         cell.accessoryType = .disclosureIndicator
         cell.backgroundColor = .black
         cell.tintColor = .gray
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 9
     }
 }
 
