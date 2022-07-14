@@ -20,16 +20,26 @@ final class Cell: UITableViewCell {
     // MARK: Properties
     private let name: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private let descript: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 0
+        label.adjustsFontSizeToFitWidth = true
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private let image: UIImageView = {
         let image = UIImageView()
+        image.layer.cornerRadius = 10
+//        image.imageFromServerURL(<#T##URLString: String##String#>, placeHolder: nil)
+        image.clipsToBounds = true
+        image.backgroundColor = .secondarySystemBackground
+        image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
     // MARK: Initializers
@@ -46,8 +56,8 @@ final class Cell: UITableViewCell {
         contentView.addSubview(name)
         contentView.addSubview(descript)
         
-        contentView.backgroundColor = .systemBlue
         NSLayoutConstraint.activate([
+            
             image.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             image.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 20),
             image.widthAnchor.constraint(equalToConstant: 100),
@@ -69,15 +79,18 @@ final class Cell: UITableViewCell {
 }
 
 // MARK: - Configurable
-extension Cell: Configurable {
-    struct Model {
-        let name: String
-        let description: String
-        let image: UIImageView
-    }
-    
-    func configure(model: Model) {
-        name.text = model.name
-        descript.text = model.description
-    }
-}
+//extension Cell: Configurable {
+//
+//    struct Model {
+//        let name: String
+//        let description: String
+//        let image: URL
+//    }
+//
+//    func configure(model: Model) {
+//        name.text = model.name
+//        descript.text = model.description
+//        //???
+//        //image ?!
+//    }
+//}
