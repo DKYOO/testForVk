@@ -9,4 +9,5 @@ import Foundation
 
 struct K {
     static let title = "Сервисы VK"
+    static let reuseCellName = "Cell"
 }
