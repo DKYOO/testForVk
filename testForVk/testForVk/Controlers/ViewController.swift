@@ -52,6 +52,7 @@ class ViewController: UIViewController {
 //         print(text)
      }
     
+    
     func getArray(model: Services) -> Model {
         let modelOne = Model(name: model.name, description: model.description, image: model.icon_url)
         return modelOne
