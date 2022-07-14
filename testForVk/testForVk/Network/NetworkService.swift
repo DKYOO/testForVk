@@ -13,7 +13,7 @@ import UIKit
 class NetworkService {
     
     private init() { }
-    private let path = "https://publicstorage.hb.bizmrg.com/sirius/result.json"
+    private let path = K.url
     static let shared = NetworkService()
     
    func loadJson(completion: @escaping (Result<NResponseRootModel, Error>) -> Void) {

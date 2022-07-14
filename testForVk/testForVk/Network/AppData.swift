@@ -21,4 +21,11 @@ struct Services: Codable {
     let description: String
     let link: String
     let icon_url: String
+    
+    init(name: String, description: String, link: String, icon_url: String) {
+          self.name = name
+          self.description = description
+          self.link = link
+          self.icon_url = icon_url
+      }
 }

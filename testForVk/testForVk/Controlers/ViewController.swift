@@ -20,6 +20,14 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        DispatchQueue.main.async { self.fetch() }
+        setupView()
+        setupTableView()
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.rowTapped))
+        tableView.addGestureRecognizer(tap)
+    }
+    
+    func fetch() {
         NetworkService.shared.loadJson { result in
             switch result {
             case .success(let data):
@@ -27,14 +35,11 @@ class ViewController: UIViewController {
                 print("Success")
                 self.arrayWithBullshit = data.body.services
                 self.counter = data.body.services.count
+                print(self.arrayWithBullshit, self.counter)
             case .failure(let error):
                 print(error)
             }
         }
-        setupView()
-        setupTableView()
-        let tap = UITapGestureRecognizer(target: self, action: #selector(self.rowTapped))
-        tableView.addGestureRecognizer(tap)
     }
     
     private func setupView() {
@@ -63,7 +68,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource  {
     
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return 80
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -79,7 +84,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource  {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 9
+        return arrayWithBullshit.count
     }
 }
 
