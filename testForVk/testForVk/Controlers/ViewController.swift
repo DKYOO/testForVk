@@ -11,30 +11,21 @@ import Foundation
 class ViewController: UIViewController {
     
     var arrayWithBullshit: [Services] = []
-    var counter: Int = 1
-    
+    var deepLink: String = ""
     private var tableView = UITableView()
     
     override func viewDidLoad() {
-        print("3")
         super.viewDidLoad()
         setupView()
         fetch()
         setupTableView()
-        let tap = UITapGestureRecognizer(target: self, action: #selector(self.rowTapped))
-        tableView.addGestureRecognizer(tap)
     }
     
     func fetch() {
             NetworkService.shared.loadJson { result in
                 switch result {
                 case .success(let data):
-                    print("+++++++++++++++++++++++++")
-                    print("Success")
                     self.arrayWithBullshit = data.body.services
-                    self.counter = data.body.services.count
-                    print(self.arrayWithBullshit)
-                    print(self.counter)
                     DispatchQueue.main.async { self.tableView.reloadData() }
                 case .failure(let error):
                     print(error)
@@ -50,17 +41,12 @@ class ViewController: UIViewController {
     }
     
     private func setupTableView() {
-        print("2")
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(Cell.self, forCellReuseIdentifier: K.reuseCellName)
         tableView.backgroundColor = .black
         tableView.separatorStyle = .singleLine
     }
-    
-    @objc private func rowTapped(sender: UITapGestureRecognizer) {
-
-     }
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource  {
@@ -83,8 +69,17 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource  {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("1")
         return arrayWithBullshit.count
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let appUrl = URL(string: arrayWithBullshit[indexPath.row].link) else { return }
+        if UIApplication.shared.canOpenURL(appUrl) {
+            UIApplication.shared.open(appUrl)
+        } else {
+            UIApplication.shared.open(appUrl)
+        }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
