@@ -63,16 +63,13 @@ final class Cell: UITableViewCell {
             image.widthAnchor.constraint(equalToConstant: 60),
             image.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
             
-            name.topAnchor.constraint(equalTo: contentView.topAnchor),
+            name.topAnchor.constraint(equalTo: image.topAnchor),
             name.leftAnchor.constraint(equalTo: image.rightAnchor, constant: 20),
-            name.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -20),
-            name.heightAnchor.constraint(equalTo: image.heightAnchor, multiplier: 0.5),
             
-            descript.topAnchor.constraint(equalTo: name.bottomAnchor),
+            descript.topAnchor.constraint(equalTo: name.bottomAnchor, constant: 10),
             descript.leftAnchor.constraint(equalTo: image.rightAnchor, constant: 20),
-            descript.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -20),
-            descript.heightAnchor.constraint(equalTo: image.heightAnchor, multiplier: 0.5),
-            descript.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
+            descript.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10),
+            descript.bottomAnchor.constraint(equalTo: image.bottomAnchor)
    
         ])
     }
