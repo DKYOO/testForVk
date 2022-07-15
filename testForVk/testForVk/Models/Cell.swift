@@ -58,10 +58,10 @@ final class Cell: UITableViewCell {
         
         NSLayoutConstraint.activate([
             
-            image.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            image.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             image.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 20),
-            image.widthAnchor.constraint(equalToConstant: 40),
-            image.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
+            image.widthAnchor.constraint(equalToConstant: 60),
+            image.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
             
             name.topAnchor.constraint(equalTo: contentView.topAnchor),
             name.leftAnchor.constraint(equalTo: image.rightAnchor, constant: 20),
