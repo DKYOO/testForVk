@@ -20,6 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         let navVC = UINavigationController(rootViewController: ViewController())
         navVC.navigationBar.barStyle = .default
+        navVC.navigationBar.tintColor = .black
         navVC.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
         window?.rootViewController = navVC
         window?.makeKeyAndVisible()

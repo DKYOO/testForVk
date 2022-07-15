@@ -8,8 +8,6 @@
 import Foundation
 import UIKit
 
-
-
 class NetworkService {
     
     private init() { }
@@ -34,14 +32,5 @@ class NetworkService {
             urlSession.resume()
         }
     }
-    
-    func loadImage() {
-        
-    }
-    
-
-    
-    
-    
-    
+  
 }

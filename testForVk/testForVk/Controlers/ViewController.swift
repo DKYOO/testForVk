@@ -13,33 +13,33 @@ class ViewController: UIViewController {
     var arrayWithBullshit: [Services] = []
     var counter: Int = 1
     
-    private var tableView: UITableView = {
-        let tableView = UITableView()
-        return tableView
-    }()
+    private var tableView = UITableView()
     
     override func viewDidLoad() {
+        print("3")
         super.viewDidLoad()
-        DispatchQueue.main.async { self.fetch() }
         setupView()
+        fetch()
         setupTableView()
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.rowTapped))
         tableView.addGestureRecognizer(tap)
     }
     
     func fetch() {
-        NetworkService.shared.loadJson { result in
-            switch result {
-            case .success(let data):
-                print("+++++++++++++++++++++++++")
-                print("Success")
-                self.arrayWithBullshit = data.body.services
-                self.counter = data.body.services.count
-                print(self.arrayWithBullshit, self.counter)
-            case .failure(let error):
-                print(error)
+            NetworkService.shared.loadJson { result in
+                switch result {
+                case .success(let data):
+                    print("+++++++++++++++++++++++++")
+                    print("Success")
+                    self.arrayWithBullshit = data.body.services
+                    self.counter = data.body.services.count
+                    print(self.arrayWithBullshit)
+                    print(self.counter)
+                    DispatchQueue.main.async { self.tableView.reloadData() }
+                case .failure(let error):
+                    print(error)
+                }
             }
-        }
     }
     
     private func setupView() {
@@ -50,7 +50,7 @@ class ViewController: UIViewController {
     }
     
     private func setupTableView() {
-        
+        print("2")
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(Cell.self, forCellReuseIdentifier: K.reuseCellName)
@@ -65,8 +65,6 @@ class ViewController: UIViewController {
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource  {
     
-    
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
@@ -79,11 +77,13 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource  {
         cell.configure(model: .init(name: element.name, description: element.description, image: element.icon_url))
         cell.accessoryType = .disclosureIndicator
         cell.backgroundColor = .black
-        cell.tintColor = .gray
+        cell.tintColor = .black
+        cell.selectionStyle = .none
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("1")
         return arrayWithBullshit.count
     }
 }
